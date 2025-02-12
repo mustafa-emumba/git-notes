@@ -1,0 +1,47 @@
+.nav-bar {
+  background-color: #003B44;
+  padding: 3rem 2rem;
+}
+
+.logo {
+  color: white;
+}
+
+.login-button {
+  height: 55px;
+  width: 150px;
+  color: black;
+  background-color: white;
+  border-radius: 4px;
+}
+
+::ng-deep .nav-form-field {
+  height: 55px;
+  width: 400px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+  .mat-mdc-form-field-subscript-wrapper {
+    display: none !important;
+  }
+  
+  .mat-icon {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  .mat-mdc-notch-piece {
+    border: none;
+  }
+
+  .mat-mdc-input-element {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  .mat-mdc-form-field-infix {
+    display: flex;
+    padding: 0px !important;
+  }
+
+  input::placeholder {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+}
