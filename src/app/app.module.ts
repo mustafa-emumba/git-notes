@@ -13,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 // Component Imports
 import { SvgIconComponent } from './components/svg-icon/svg-icon.component';
@@ -36,7 +37,8 @@ import { PublicGistsComponent } from './pages/public-gists/public-gists.componen
     MatButtonModule,
     MatInputModule,
     MatToolbarModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatButtonToggleModule
   ],
   providers: [
     provideAnimationsAsync()
