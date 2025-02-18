@@ -1,0 +1,23 @@
+<div class="gist-grid">
+  @for (item of gists; track item.id) {
+  <div class="grid-item" fxLayout="column">
+    <div class="code-editor">
+      code editor will come here
+    </div>
+    <div class="gist-info" fxLayout="row" fxLayoutGap="1rem">
+      <div>
+        <img class="avatar" [src]="item.owner.avatar_url" alt="user avatar" height="40" width="40">
+      </div>
+      <div fxLayout="column" fxLayoutGap="0.25rem">
+        <div fxLayout="row" fxLayoutGap="0.25rem">
+          <div class="owner-name">{{ item.owner.login }}</div>
+          <div>{{ '/' }}</div>
+          <div class="file-name">{{ getFileName(item.files) }}</div>
+        </div>
+        <div class="gist-time">{{ timeSince(item.updated_at) }}</div>
+        <div class="gist-description">{{ item.description }}</div>
+      </div>
+    </div>
+  </div>
+  }
+</div>

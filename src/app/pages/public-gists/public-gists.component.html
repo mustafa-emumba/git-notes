@@ -15,6 +15,10 @@
       @if (layout === "list" && gists && gists.length) {
       <app-gist-table class="w-100" [gists]="gists"></app-gist-table>
       }
+
+      @if (layout === "grid") {
+      <app-gist-grid class="w-100" [gists]="gists"></app-gist-grid>
+      }
     </div>
   </div>
 </section>

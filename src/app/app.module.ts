@@ -25,6 +25,7 @@ import { SvgIconComponent } from './components/svg-icon/svg-icon.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { PublicGistsComponent } from './pages/public-gists/public-gists.component';
 import { GistTableComponent } from './components/gist-table/gist-table.component';
+import { GistGridComponent } from './components/gist-grid/gist-grid.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { GistTableComponent } from './components/gist-table/gist-table.component
     SvgIconComponent,
     NavBarComponent,
     PublicGistsComponent,
-    GistTableComponent
+    GistTableComponent,
+    GistGridComponent
   ],
   imports: [
     BrowserModule,

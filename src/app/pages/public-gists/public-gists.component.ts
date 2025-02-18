@@ -11,7 +11,7 @@ import { GistService } from '../../services/gist.service';
 export class PublicGistsComponent implements OnInit {
   gridIconPath: string = "/icons/grid.svg";
   listIconPath: string = "/icons/list.svg";
-  layout: string = "list";
+  layout: string = "grid";
   gists: any;
 
   constructor(
