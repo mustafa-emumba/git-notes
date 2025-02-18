@@ -1,0 +1,54 @@
+.avatar {
+  border-radius: 100%;
+}
+
+.mat-mdc-table {
+  border: 1px solid rgba(227, 227, 227, 1);
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.mat-mdc-header-row {
+  background-color: rgba(239, 239, 239, 1);
+  color: rgba(61, 61, 61, 1);
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.mat-mdc-header-cell {
+  border: none;
+}
+
+.mat-mdc-row {
+  border: 1px solid rgba(227, 227, 227, 1);
+  cursor: pointer;
+}
+
+.mat-mdc-cell {
+  border-top: none;
+  border-bottom: none;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.keyword {
+  background-color: rgba(0, 59, 68, 1);
+  border-radius: 50px;
+  padding: 4px 16px;
+  color: white;
+}
+
+.actions {
+ justify-content: center;
+}
+
+.action-icon {
+  color: #003B44;
+}

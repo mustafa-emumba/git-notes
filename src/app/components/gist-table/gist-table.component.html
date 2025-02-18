@@ -1,0 +1,52 @@
+<table mat-table [dataSource]="gists" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let item">
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0.5rem">
+        <img class="avatar" [src]="item.owner.avatar_url" alt="user avatar" height="40" width="40">
+        <div>
+          {{item.owner.login}}
+        </div>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="notebook">
+    <mat-header-cell *matHeaderCellDef>Filename</mat-header-cell>
+    <!-- <mat-cell *matCellDef="let item">{{ getFileName(item.files) }}</mat-cell> -->
+    <mat-cell *matCellDef="let item">{{ "Notebook Name" }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="keyword">
+    <mat-header-cell *matHeaderCellDef>Keyword</mat-header-cell>
+    <!-- <mat-cell *matCellDef="let item">{{item.owner.login}}</mat-cell> -->
+    <mat-cell *matCellDef="let item">
+      <div class="keyword">
+        {{ "Keyword" }}
+      </div>
+    </mat-cell>
+
+  </ng-container>
+
+  <ng-container matColumnDef="updatedAt">
+    <mat-header-cell *matHeaderCellDef>Updated At</mat-header-cell>
+    <mat-cell *matCellDef="let item">{{ timeSince(item.updated_at) }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell *matCellDef="let item" class="actions">
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
+        <app-svg-icon class="action-icon" [src]="starIconPath" [height]="'24px'"></app-svg-icon>
+
+        <app-svg-icon class="action-icon" [src]="gitIconPath" [height]="'24px'"></app-svg-icon>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+</table>

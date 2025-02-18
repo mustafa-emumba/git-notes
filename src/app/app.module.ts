@@ -13,19 +13,26 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 // Component Imports
 import { SvgIconComponent } from './components/svg-icon/svg-icon.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { PublicGistsComponent } from './pages/public-gists/public-gists.component';
+import { GistTableComponent } from './components/gist-table/gist-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SvgIconComponent,
     NavBarComponent,
-    PublicGistsComponent
+    PublicGistsComponent,
+    GistTableComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +45,11 @@ import { PublicGistsComponent } from './pages/public-gists/public-gists.componen
     MatInputModule,
     MatToolbarModule,
     MatFormFieldModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatTableModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule
   ],
   providers: [
     provideAnimationsAsync()
