@@ -21,4 +21,7 @@ export class GistService {
     return this.http.get(this.apiUrl, { headers });
   }
 
+  getGistContent(rawUrl: string): Observable<any> {
+    return this.http.get(rawUrl, { responseType: 'text' });
+  }
 }

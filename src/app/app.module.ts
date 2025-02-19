@@ -26,6 +26,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { PublicGistsComponent } from './pages/public-gists/public-gists.component';
 import { GistTableComponent } from './components/gist-table/gist-table.component';
 import { GistGridComponent } from './components/gist-grid/gist-grid.component';
+import { GistCodeComponent } from './components/gist-code/gist-code.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { GistGridComponent } from './components/gist-grid/gist-grid.component';
     NavBarComponent,
     PublicGistsComponent,
     GistTableComponent,
-    GistGridComponent
+    GistGridComponent,
+    GistCodeComponent
   ],
   imports: [
     BrowserModule,

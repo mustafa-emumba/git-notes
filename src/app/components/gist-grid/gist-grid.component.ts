@@ -11,7 +11,9 @@ export class GistGridComponent implements OnInit{
   @Input() gists: any;
 
   ngOnInit(): void {
-    console.log(this.gists)
+    if (this.gists) {
+      console.log(this.gists)
+    }
   }
 
   getFileName(file: any): string {

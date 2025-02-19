@@ -2,7 +2,7 @@
   @for (item of gists; track item.id) {
   <div class="grid-item" fxLayout="column">
     <div class="code-editor">
-      code editor will come here
+      <app-gist-code [files]="item.files"></app-gist-code>
     </div>
     <div class="gist-info" fxLayout="row" fxLayoutGap="1rem">
       <div>
