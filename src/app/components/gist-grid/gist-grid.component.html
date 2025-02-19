@@ -1,5 +1,5 @@
 <div class="gist-grid">
-  @for (item of gists; track item.id) {
+  @for (item of pagedGists; track item.id) {
   <div class="grid-item" fxLayout="column">
     <div class="code-editor">
       <app-gist-code [files]="item.files"></app-gist-code>
@@ -21,3 +21,6 @@
   </div>
   }
 </div>
+
+<mat-paginator [length]="gists.length" [pageSize]="6" [pageSizeOptions]="[6]" (page)="onPageChange($event)">
+</mat-paginator>

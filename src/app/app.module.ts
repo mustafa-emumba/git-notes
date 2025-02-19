@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
 
 // Angular Material Imports
 import { MatIconModule } from '@angular/material/icon';
@@ -28,6 +29,9 @@ import { GistTableComponent } from './components/gist-table/gist-table.component
 import { GistGridComponent } from './components/gist-grid/gist-grid.component';
 import { GistCodeComponent } from './components/gist-code/gist-code.component';
 
+// Third Party Imports
+import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +44,7 @@ import { GistCodeComponent } from './components/gist-code/gist-code.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     FlexLayoutModule,
@@ -53,10 +58,11 @@ import { GistCodeComponent } from './components/gist-code/gist-code.component';
     MatTableModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MonacoEditorModule.forRoot()
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent]
 })

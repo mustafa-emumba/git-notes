@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 
 
 @Component({
@@ -9,11 +10,25 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 })
 export class GistGridComponent implements OnInit{
   @Input() gists: any;
+  pagedGists: any[] = []; // Only show paginated items
+  pageSize = 6;
+  currentPage = 0;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngOnInit(): void {
-    if (this.gists) {
-      console.log(this.gists)
-    }
+    this.updatePagedGists();
+  }
+
+  onPageChange(event: any) {
+    this.currentPage = event.pageIndex;
+    this.updatePagedGists();
+  }
+
+  updatePagedGists() {
+    const startIndex = this.currentPage * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.pagedGists = this.gists.slice(startIndex, endIndex);
   }
 
   getFileName(file: any): string {
