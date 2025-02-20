@@ -1,0 +1,9 @@
+.editor-container {
+  height: 225px;
+  width: 100%;
+  cursor: pointer;
+
+  &:hover {
+    border: 2px solid #003B44;
+  }
+}

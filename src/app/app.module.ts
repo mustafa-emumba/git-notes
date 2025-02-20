@@ -31,6 +31,9 @@ import { GistCodeComponent } from './components/gist-code/gist-code.component';
 
 // Third Party Imports
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -59,7 +62,10 @@ import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
     MatSortModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
-    MonacoEditorModule.forRoot()
+    MonacoEditorModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule
+
   ],
   providers: [
     provideAnimationsAsync(),

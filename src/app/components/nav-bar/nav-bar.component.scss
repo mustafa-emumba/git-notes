@@ -21,10 +21,11 @@
   width: 400px;
   border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 4px;
+
   .mat-mdc-form-field-subscript-wrapper {
     display: none !important;
   }
-  
+
   .mat-icon {
     color: rgba(255, 255, 255, 0.8) !important;
   }
@@ -44,5 +45,49 @@
 
   input::placeholder {
     color: rgba(255, 255, 255, 0.8) !important;
+  }
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
+.profile-container {
+  cursor: pointer;
+}
+
+.dropdown {
+  position: absolute;
+  top: 5rem;
+  right: 1rem;
+  background: white;
+  color: #003B44;
+  padding: 1rem;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  width: 9rem;
+
+  .text {
+    font-size: 14px;
+  }
+
+  .subtext {
+    font-size: 13px;
+  }
+
+  .name {
+    font-size: 16px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background-color: rgba(230, 230, 230, 1);
   }
 }

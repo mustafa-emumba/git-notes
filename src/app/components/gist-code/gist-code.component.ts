@@ -47,6 +47,11 @@ export class GistCodeComponent implements OnInit, AfterViewInit {
   }
 
   initMonacoEditor() {
+    if (!this.editorContainer?.nativeElement) {
+      console.error('Editor container not found!');
+      return;
+    }
+
     this.editor = monaco.editor.create(this.editorContainer.nativeElement, {
       value: this.codeContent,
       language: 'javascript',
@@ -55,12 +60,23 @@ export class GistCodeComponent implements OnInit, AfterViewInit {
       readOnly: true,
       scrollbar: {
         horizontal: 'hidden',
-        vertical: 'hidden'
-      }
+        vertical: 'hidden',
+        handleMouseWheel: false
+      },
+      overviewRulerLanes: 0,
+      matchBrackets: 'never',
+      occurrencesHighlight: 'off',
+      renderLineHighlight: 'none',
+      renderLineHighlightOnlyWhenFocus: false,
+      lineDecorationsWidth: 0,
+      lineNumbersMinChars: 0
     });
 
-    monaco.editor.setTheme('customTheme');
+    setTimeout(() => {
+      this.editor.layout();
+    }, 100);
   }
+
 
   loadGistContent(rawUrl: string) {
     this.gistService.getGistContent(rawUrl).subscribe({

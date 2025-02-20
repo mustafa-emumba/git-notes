@@ -5,6 +5,32 @@
       <mat-icon matPrefix>search</mat-icon>
       <input matInput placeholder="Search gists...">
     </mat-form-field>
-    <button mat-button class="login-button">Login</button>
+    @if (!user) {
+    <button mat-button class="login-button" (click)="loginWithGitHub()">Login</button>
+    }
+    @if (user) {
+    <div #profileContainer class="profile-container" (click)="toggleDropdown()">
+      <img class="avatar" [src]="user.photoURL" alt="user avatar" height="55" width="55">
+      @if (dropdownOpen) {
+      <div class="dropdown">
+        <div class="subtext">Signed in as</div>
+        @if (user.displayName) {
+        <div class="name">{{ user.displayName }}</div>
+        } @else {
+        <div class="name">{{ user.email }}</div>
+        }
+        <hr>
+        <div class="text">
+          <div (click)="logout()">Your gists</div>
+          <div (click)="logout()">Starred gists</div>
+          <div (click)="logout()">Your Github profile</div>
+          <hr>
+          <div (click)="logout()">Help</div>
+          <div (click)="logout()">Sign out</div>
+        </div>
+      </div>
+      }
+    </div>
+    }
   </div>
 </mat-toolbar>
