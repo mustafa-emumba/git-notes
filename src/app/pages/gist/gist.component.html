@@ -1,0 +1,40 @@
+<section id="gist">
+  <div fxLayout="column">
+    <div class="w-100" fxLayout="row" fxLayoutAlign="space-between center">
+      <app-owner-info class="w-100" [item]="gist"></app-owner-info>
+      <div class="git-buttons" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
+        <div class="custom-button">
+          <div fxLayout="row">
+            <div class="button" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0.5rem">
+              <div></div>
+              <app-svg-icon class="icon" [src]="gitIconPath" [height]="'24px'" [width]="'24px'"></app-svg-icon>
+              <div>Fork</div>
+            </div>
+            <div class="count" fxLayout="row" fxLayoutAlign="center center">
+              <div>{{ forkCount }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="custom-button">
+          <div fxLayout="row">
+            <div class="button" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0.5rem">
+              <app-svg-icon class="icon" [src]="starIconPath" [height]="'24px'" [width]="'24px'"></app-svg-icon>
+              <div>Star</div>
+            </div>
+            <div class="count" fxLayout="row" fxLayoutAlign="center center">
+              <div>{{ '0' }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="start start" class="code-container">
+      <div class="file-name">
+        <div class="name">
+          {{ getFileName(gist.files) }}
+        </div>
+      </div>
+      <div class="w-100 h-100"><app-gist-code class="w-100 h-100" [files]="gist.files"></app-gist-code></div>
+    </div>
+  </div>
+</section>

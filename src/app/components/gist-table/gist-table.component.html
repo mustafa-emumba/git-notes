@@ -38,16 +38,15 @@
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
     <mat-cell *matCellDef="let item" class="actions">
       <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
-        <app-svg-icon class="action-icon" [src]="starIconPath" [height]="'24px'"></app-svg-icon>
-
-        <app-svg-icon class="action-icon" [src]="gitIconPath" [height]="'24px'"></app-svg-icon>
+        <app-svg-icon class="action-icon" [src]="gitIconPath" [height]="'24px'" [width]="'24px'"></app-svg-icon>
+        <app-svg-icon class="action-icon" [src]="starIconPath" [height]="'24px'" [width]="'24px'"></app-svg-icon>
       </div>
     </mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
-  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns" (click)="openGist(row)"></mat-row>
 
 </table>
 

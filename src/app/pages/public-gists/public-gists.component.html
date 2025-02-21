@@ -5,7 +5,7 @@
       <mat-button-toggle-group [hideSingleSelectionIndicator]="true" (change)="onToggleChange($event)" [value]="'list'">
         <mat-button-toggle value="grid" [ngClass]="layout === 'grid' ? 'toggle-checked' : 'toggle-unchecked'">
           <app-svg-icon class="toggle-icon" [src]="gridIconPath" [height]="'20px'"></app-svg-icon>
-        </mat-button-toggle>
+      </mat-button-toggle>
         <mat-button-toggle value="list" [ngClass]="layout === 'list' ? 'toggle-checked' : 'toggle-unchecked'">
           <app-svg-icon class="toggle-icon" [src]="listIconPath" [height]="'24px'"></app-svg-icon>
         </mat-button-toggle>

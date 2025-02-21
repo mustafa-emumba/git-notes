@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, ViewChild, SimpleChanges } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { NavigationExtras, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-gist-table',
@@ -15,6 +17,11 @@ export class GistTableComponent implements OnInit {
   gitIconPath: string = "/icons/git.svg";
   starIconPath: string = "/icons/star.svg";
   dataSource = new MatTableDataSource<any>([]);
+
+  constructor(
+    private router: Router
+  ) { }
+
 
   ngOnInit(): void {
     if (this.gists && this.gists.length > 0) {
@@ -63,6 +70,12 @@ export class GistTableComponent implements OnInit {
     }
 
     return 'Last updated just now';
+  }
+
+  openGist(gist: any) {
+    console.log(gist)
+    const navigationExtras: NavigationExtras = { state: { data: gist } };
+    this.router.navigate(['/gist'], navigationExtras);
   }
 
 }

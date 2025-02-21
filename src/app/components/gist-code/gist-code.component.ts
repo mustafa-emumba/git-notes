@@ -15,6 +15,7 @@ interface GistFile {
 })
 export class GistCodeComponent implements OnInit, AfterViewInit {
   @Input() files!: GistFile;
+  @Input() editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = {}; 
   codeContent: string = '';
 
   @ViewChild('editorContainer', { static: false }) editorContainer!: ElementRef;
@@ -52,25 +53,14 @@ export class GistCodeComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this.editor = monaco.editor.create(this.editorContainer.nativeElement, {
+    const options = {
       value: this.codeContent,
       language: 'javascript',
       theme: 'customTheme',
-      minimap: { enabled: false },
-      readOnly: true,
-      scrollbar: {
-        horizontal: 'hidden',
-        vertical: 'hidden',
-        handleMouseWheel: false
-      },
-      overviewRulerLanes: 0,
-      matchBrackets: 'never',
-      occurrencesHighlight: 'off',
-      renderLineHighlight: 'none',
-      renderLineHighlightOnlyWhenFocus: false,
-      lineDecorationsWidth: 0,
-      lineNumbersMinChars: 0
-    });
+      ...this.editorOptions
+    }
+
+    this.editor = monaco.editor.create(this.editorContainer.nativeElement, options);
 
     setTimeout(() => {
       this.editor.layout();

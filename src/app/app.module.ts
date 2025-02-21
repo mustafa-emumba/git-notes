@@ -34,6 +34,8 @@ import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
+import { GistComponent } from './pages/gist/gist.component';
+import { OwnerInfoComponent } from './components/owner-info/owner-info.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { environment } from '../environments/environment';
     PublicGistsComponent,
     GistTableComponent,
     GistGridComponent,
-    GistCodeComponent
+    GistCodeComponent,
+    GistComponent,
+    OwnerInfoComponent
   ],
   imports: [
     BrowserModule,
