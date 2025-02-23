@@ -12,7 +12,7 @@ import * as monaco from 'monaco-editor';
 })
 export class YourGistsComponent implements OnInit {
   user: any;
-  gists: any;
+  gists: any = [];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   pagedGists: any[] = [];
   pageSize = 3;

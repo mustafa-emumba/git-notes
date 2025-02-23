@@ -14,7 +14,11 @@ export class GistService {
     'X-GitHub-Api-Version': '2022-11-28'
   });
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
+
+  getGithubUser(): Observable<any> {
+    return this.http.get(`https://api.github.com/user`, { headers: this.headers });
+  }
 
   getPublicGists(): Observable<any> {
     return this.http.get(`${this.baseUrl}/public`, { headers: this.headers });
@@ -22,6 +26,10 @@ export class GistService {
 
   getUserGists(): Observable<any> {
     return this.http.get(`${this.baseUrl}`, { headers: this.headers });
+  }
+
+  getStarredGists(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/starred`, { headers: this.headers });
   }
 
   getGistContent(rawUrl: string): Observable<any> {
@@ -49,5 +57,5 @@ export class GistService {
       })
     );
   }
-  
+
 }

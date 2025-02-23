@@ -30,8 +30,10 @@
         </div>
         }
       </div>
-      <mat-paginator class="w-100" [length]="gists.length" [pageSize]="pageSize" (page)="onPageChange($event)">
-      </mat-paginator>
+      @if (gists.length) {
+      <mat-paginator class="w-100" [length]="gists.length" [pageSize]="pageSize"
+        (page)="onPageChange($event)"></mat-paginator>
+      }
     </div>
   </div>
 </section>
