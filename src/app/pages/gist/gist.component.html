@@ -34,7 +34,9 @@
           {{ getFileName(gist.files) }}
         </div>
       </div>
-      <div class="w-100 h-100"><app-gist-code class="w-100 h-100" [files]="gist.files"></app-gist-code></div>
+      <div class="w-100 h-100">
+        <app-gist-code class="w-100 h-100" [files]="gist.files" [editorOptions]="editorOptions"></app-gist-code>
+      </div>
     </div>
   </div>
 </section>

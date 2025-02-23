@@ -61,9 +61,17 @@
 }
 
 .actions {
- justify-content: center;
+  justify-content: center;
 }
 
 .action-icon {
   color: #003B44;
+}
+
+.filename {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

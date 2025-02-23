@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,9 +15,13 @@ export class NavBarComponent {
   dropdownOpen: boolean = false;
   @ViewChild('profileContainer') profileContainer!: ElementRef;
 
-  constructor(private afAuth: AngularFireAuth) {
+  constructor(
+    private afAuth: AngularFireAuth,
+    private router: Router
+  ) {
     this.afAuth.authState.subscribe(user => {
       this.user = user;
+      console.log(this.user)
     });
   }
 
@@ -30,8 +35,21 @@ export class NavBarComponent {
 
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
-    console.log('Dropdown Open:', this.dropdownOpen);
   }
+
+  openYourGists() {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        data: {
+          photoURL: this.user?.photoURL,
+          email: this.user?.email,
+          displayName: this.user?.displayName          
+        }
+      }
+    };
+    this.router.navigate(['/your-gists'], navigationExtras);
+  }
+
 
   @HostListener('document:click', ['$event'])
   onClickOutside(event: Event) {
@@ -39,4 +57,6 @@ export class NavBarComponent {
       this.dropdownOpen = false;
     }
   }
+
+
 }

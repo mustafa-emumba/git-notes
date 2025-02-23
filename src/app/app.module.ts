@@ -19,7 +19,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 // Component Imports
 import { SvgIconComponent } from './components/svg-icon/svg-icon.component';
@@ -36,6 +36,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
 import { GistComponent } from './pages/gist/gist.component';
 import { OwnerInfoComponent } from './components/owner-info/owner-info.component';
+import { YourGistsComponent } from './pages/your-gists/your-gists.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { OwnerInfoComponent } from './components/owner-info/owner-info.component
     GistGridComponent,
     GistCodeComponent,
     GistComponent,
-    OwnerInfoComponent
+    OwnerInfoComponent,
+    YourGistsComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +66,7 @@ import { OwnerInfoComponent } from './components/owner-info/owner-info.component
     MatButtonToggleModule,
     MatTableModule,
     MatSortModule,
+    MatTooltipModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MonacoEditorModule.forRoot(),

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GistService } from '../../services/gist.service';
+import * as monaco from 'monaco-editor';
 
 @Component({
   selector: 'app-gist',
@@ -14,6 +15,9 @@ export class GistComponent implements OnInit {
   gist: any;
   forkCount: number = 0;
   starCount: number = 0;
+  editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = {
+    readOnly: true,
+  }
 
   constructor(
     private router: Router,

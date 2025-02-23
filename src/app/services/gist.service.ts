@@ -20,6 +20,10 @@ export class GistService {
     return this.http.get(`${this.baseUrl}/public`, { headers: this.headers });
   }
 
+  getUserGists(): Observable<any> {
+    return this.http.get(`${this.baseUrl}`, { headers: this.headers });
+  }
+
   getGistContent(rawUrl: string): Observable<any> {
     return this.http.get(rawUrl, { responseType: 'text' });
   }

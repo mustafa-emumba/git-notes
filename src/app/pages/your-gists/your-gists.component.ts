@@ -1,19 +1,21 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { GistService } from '../../services/gist.service';
+import { MatPaginator } from '@angular/material/paginator';
 import * as monaco from 'monaco-editor';
 
 @Component({
-  selector: 'app-gist-grid',
+  selector: 'app-your-gists',
   standalone: false,
-  templateUrl: './gist-grid.component.html',
-  styleUrl: './gist-grid.component.scss'
+  templateUrl: './your-gists.component.html',
+  styleUrl: './your-gists.component.scss'
 })
-export class GistGridComponent implements OnInit {
-  @Input() gists: any;
+export class YourGistsComponent implements OnInit {
+  user: any;
+  gists: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   pagedGists: any[] = [];
-  pageSize = 6;
+  pageSize = 3;
   currentPage = 0;
   editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = {
     minimap: { enabled: false },
@@ -33,11 +35,14 @@ export class GistGridComponent implements OnInit {
   }
 
   constructor(
-    private router: Router
+    private router: Router,
+    private gistService: GistService
   ) { }
 
   ngOnInit(): void {
-    this.updatePagedGists();
+    const currentState = this.router.lastSuccessfulNavigation;
+    this.user = currentState?.extras?.state?.['data'];
+    this.loadGists();
   }
 
   onPageChange(event: any) {
@@ -51,9 +56,19 @@ export class GistGridComponent implements OnInit {
     this.pagedGists = this.gists.slice(startIndex, endIndex);
   }
 
+  loadGists() {
+    this.gistService.getPublicGists().subscribe({
+      next: (data) => {
+        this.gists = data;
+        this.updatePagedGists();
+
+      },
+      error: (err) => console.error('Error fetching gists:', err)
+    });
+  }
+
   openGist(gist: any) {
     const navigationExtras: NavigationExtras = { state: { data: gist } };
     this.router.navigate(['/gist'], navigationExtras);
   }
-
 }

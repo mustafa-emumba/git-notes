@@ -1,0 +1,37 @@
+<section id="your-gists">
+  <div fxLayout="row">
+    <div fxLayout="column" fxLayoutAlign="start center" fxFlex="20" fxLayoutGap="1rem">
+      <div>
+        <img class="avatar" [src]="user.photoURL" alt="user avatar" height="200" width="200">
+      </div>
+      <div>
+        @if (user.displayName) {
+        <div class="name">{{ user.displayName }}</div>
+        } @else {
+        <div class="name">{{ user.email }}</div>
+        }
+      </div>
+      <div>
+        <button class="profile-button">View Github Profile</button>
+      </div>
+    </div>
+    <div fxFlex fxLayout="column" fxLayoutAlign="start start">
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <div class="title">All Gists</div>
+        <div class="gist-count">{{ gists.length }}</div>
+      </div>
+      <div class="w-100" fxLayout="column" fxLayoutGap="1rem">
+        @for (item of pagedGists; track item.id) {
+        <div class="grid-item" fxLayout="column" (click)="openGist(item)">
+          <div class="code-editor">
+            <app-gist-code [files]="item.files" [editorOptions]="editorOptions"></app-gist-code>
+          </div>
+          <app-owner-info [item]="item"></app-owner-info>
+        </div>
+        }
+      </div>
+      <mat-paginator class="w-100" [length]="gists.length" [pageSize]="pageSize" (page)="onPageChange($event)">
+      </mat-paginator>
+    </div>
+  </div>
+</section>

@@ -14,8 +14,7 @@
 
   <ng-container matColumnDef="notebook">
     <mat-header-cell *matHeaderCellDef>Filename</mat-header-cell>
-    <!-- <mat-cell *matCellDef="let item">{{ getFileName(item.files) }}</mat-cell> -->
-    <mat-cell *matCellDef="let item">{{ "Notebook Name" }}</mat-cell>
+    <mat-cell class="filename" *matCellDef="let item">{{ getFileName(item.files) }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="keyword">
