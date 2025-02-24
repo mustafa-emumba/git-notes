@@ -17,12 +17,11 @@
     <mat-cell class="filename" *matCellDef="let item">{{ getFileName(item.files) }}</mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="keyword">
-    <mat-header-cell *matHeaderCellDef>Keyword</mat-header-cell>
-    <!-- <mat-cell *matCellDef="let item">{{item.owner.login}}</mat-cell> -->
+  <ng-container matColumnDef="fileCount">
+    <mat-header-cell *matHeaderCellDef>File Count</mat-header-cell>
     <mat-cell *matCellDef="let item">
-      <div class="keyword">
-        {{ "Keyword" }}
+      <div class="file-count">
+        {{ getFileCount(item) }}
       </div>
     </mat-cell>
 

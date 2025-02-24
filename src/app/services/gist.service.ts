@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, expand, map, Observable, of, reduce, switchMap, tap } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GistService {
   private baseUrl = 'https://api.github.com/gists';
-  private token = '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';
   private headers = new HttpHeaders({
     'Accept': 'application/vnd.github+json',
-    'Authorization': `Bearer ${this.token}`,
+    'Authorization': `Bearer ${environment.github.token}`,
     'X-GitHub-Api-Version': '2022-11-28'
   });
 

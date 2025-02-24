@@ -2,7 +2,7 @@
   @for (item of pagedGists; track item.id) {
   <div class="grid-item" fxLayout="column" (click)="openGist(item)">
     <div class="code-editor">
-      <app-gist-code [files]="item.files" [editorOptions]="editorOptions"></app-gist-code>
+      <app-gist-code [file]="getFirstFile(item.files)" [editorOptions]="editorOptions"></app-gist-code>
     </div>
     <app-owner-info [item]="item"></app-owner-info>
   </div>

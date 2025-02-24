@@ -12,7 +12,7 @@ import { NavigationExtras, Router } from '@angular/router';
 export class GistTableComponent implements OnInit {
   @Input() gists: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  displayedColumns: string[] = ['name', 'notebook', 'keyword', 'updatedAt', 'actions'];
+  displayedColumns: string[] = ['name', 'notebook', 'fileCount', 'updatedAt', 'actions'];
   forkIconPath: string = "/icons/fork.svg";
   starIconPath: string = "/icons/star.svg";
   dataSource = new MatTableDataSource<any>([]);
@@ -72,9 +72,12 @@ export class GistTableComponent implements OnInit {
   }
 
   openGist(gist: any) {
-    console.log(gist)
     const navigationExtras: NavigationExtras = { state: { data: gist } };
     this.router.navigate(['/gist'], navigationExtras);
+  }
+
+  getFileCount(gist: any) {
+    return Object.values(gist.files).length
   }
 
 }

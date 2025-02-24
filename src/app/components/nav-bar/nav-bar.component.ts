@@ -23,7 +23,6 @@ export class NavBarComponent {
   ) {
     this.afAuth.authState.subscribe(user => {
       this.user = user;
-      console.log(this.user)
     });
   }
 

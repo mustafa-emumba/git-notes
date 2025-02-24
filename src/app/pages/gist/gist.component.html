@@ -28,15 +28,19 @@
         </div>
       </div>
     </div>
-    <div fxLayout="column" fxLayoutAlign="start start" class="code-container">
-      <div class="file-name">
-        <div class="name">
-          {{ getFileName(gist.files) }}
+    <div class="gist-container" fxLayout="column" fxLayoutGap="1rem">
+      @for (file of files; track file) {
+        <div fxLayout="column" fxLayoutAlign="start start" class="code-container">
+          <div class="file-name">
+            <div class="name">
+              {{ file.filename }}
+            </div>
+          </div>
+          <div class="w-100 h-100">
+            <app-gist-code class="w-100 h-100" [file]="file" [editorOptions]="editorOptions"></app-gist-code>
+          </div>
         </div>
-      </div>
-      <div class="w-100 h-100">
-        <app-gist-code class="w-100 h-100" [files]="gist.files" [editorOptions]="editorOptions"></app-gist-code>
-      </div>
+      }
     </div>
   </div>
 </section>

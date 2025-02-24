@@ -13,6 +13,7 @@ export class GistComponent implements OnInit {
   forkIconPath: string = "/icons/fork.svg";
   starIconPath: string = "/icons/star.svg";
   gist: any;
+  files: any;
   forkCount: number = 0;
   starCount: number = 0;
   editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = {
@@ -28,11 +29,7 @@ export class GistComponent implements OnInit {
     const currentState = this.router.lastSuccessfulNavigation;
     this.gist = currentState?.extras?.state?.['data'];
     this.getForkCount();
-  }
-
-  getFileName(file: any): string {
-    const filename = Object.keys(file)[0]
-    return filename
+    this.files = Object.values(this.gist.files)
   }
 
   getForkCount() {

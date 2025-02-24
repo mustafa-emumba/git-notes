@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, Input, OnInit, ElementRef, ViewChild, EventEmitter, Output } from '@angular/core';
 import { GistService } from '../../services/gist.service';
+import { ensureMonacoEnvironment } from '../../utils/monaco-config';
 import * as monaco from 'monaco-editor';
 
 interface GistFile {
@@ -14,7 +15,7 @@ interface GistFile {
   styleUrl: './gist-code.component.scss'
 })
 export class GistCodeComponent implements OnInit, AfterViewInit {
-  @Input() files!: GistFile;
+  @Input() file!: GistFile;
   @Input() editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = {};
   @Input() editorForeground: string = '#000000';
   @Input() editorBackground: string = '#FAFAFA';
@@ -28,9 +29,8 @@ export class GistCodeComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    if (this.files) {
-      this.loadGistContent(Object.values(this.files)[0].raw_url);
-    }
+    ensureMonacoEnvironment()
+    this.loadGistContent(this.file.raw_url);
   }
 
   ngAfterViewInit(): void {

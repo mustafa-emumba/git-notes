@@ -56,4 +56,8 @@ export class GistGridComponent implements OnInit {
     this.router.navigate(['/gist'], navigationExtras);
   }
 
+  getFirstFile(files: any): any {
+    return files ? Object.values(files)[0] : null;
+  }
+
 }

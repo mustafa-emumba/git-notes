@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import * as monaco from 'monaco-editor';
+import { GistService } from '../../services/gist.service';
 
 
 @Component({
@@ -17,6 +18,10 @@ export class CreateGistComponent {
     { filename: '', content: '' }
   ];
 
+  constructor(
+    private gistService: GistService
+  ) { }
+
   addFile(): void {
     this.files.push({ filename: '', content: '' });
   }
@@ -32,7 +37,18 @@ export class CreateGistComponent {
   }
 
   createGist(): void {
-    console.log('Creating gist with description:', this.gistDescription);
-    console.log('Files:', this.files);
+    const files = Object.fromEntries(
+      this.files.map(file => [file.filename, { content: file.content }])
+    );
+
+    const gist = {
+      description: this.gistDescription,
+      public: false,
+      files: files
+    };
+
+    this.gistService.createGist(gist).subscribe((response) => {
+      console.log(response)
+    })
   }
 }

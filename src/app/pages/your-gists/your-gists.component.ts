@@ -57,14 +57,18 @@ export class YourGistsComponent implements OnInit {
   }
 
   loadGists() {
-    this.gistService.getPublicGists().subscribe({
+    this.gistService.getUserGists().subscribe({
       next: (data) => {
         this.gists = data;
+        if (data.length < this.pageSize) this.pageSize = data.length
         this.updatePagedGists();
-
       },
       error: (err) => console.error('Error fetching gists:', err)
     });
+  }
+
+  getFirstFile(files: any): any {
+    return files ? Object.values(files)[0] : null;
   }
 
   openGitHubProfile() {
