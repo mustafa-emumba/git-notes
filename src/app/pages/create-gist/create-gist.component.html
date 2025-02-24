@@ -1,0 +1,30 @@
+<section id="create-gist">
+  <div fxLayout="column"></div>
+  <div class="title">Create Gist</div>
+  <div class="w-100 gist-form" fxLayout="column" fxLayoutGap="1rem">
+    <mat-form-field appearance="outline" class="gist-form-field">
+      <input matInput placeholder="Gist Description" [(ngModel)]="gistDescription">
+    </mat-form-field>
+    @for (file of files; track file; let index = $index) {
+    <div class="gist-code-container" fxLayout="column">
+      <div class="filename-container" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1rem">
+        <mat-form-field appearance="outline" class="gist-form-field">
+          <input matInput placeholder="Filename including extension..." [(ngModel)]="file.filename">
+        </mat-form-field>
+        @if (files.length > 1) {
+        <mat-icon class="delete-icon" (click)="removeFile(index)">delete_outline</mat-icon>
+        }
+      </div>
+      <div class="code-editor">
+        <app-gist-code [editorBackground]="'#FFFFFF'" [editorOptions]="editorOptions"
+          (codeChanged)="onCodeChange(index, $event)"></app-gist-code>
+      </div>
+    </div>
+    }
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <button class="add-file-button" (click)="addFile()">Add file</button>
+      <button class="create-gist-button" (click)="createGist()">Create Gist</button>
+    </div>
+
+  </div>
+</section>

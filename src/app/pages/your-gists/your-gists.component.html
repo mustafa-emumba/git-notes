@@ -1,19 +1,13 @@
 <section id="your-gists">
   <div fxLayout="row">
     <div fxLayout="column" fxLayoutAlign="start center" fxFlex="20" fxLayoutGap="1rem">
-      <div>
-        <img class="avatar" [src]="user.photoURL" alt="user avatar" height="200" width="200">
-      </div>
-      <div>
-        @if (user.displayName) {
-        <div class="name">{{ user.displayName }}</div>
-        } @else {
-        <div class="name">{{ user.email }}</div>
-        }
-      </div>
-      <div>
-        <button class="profile-button">View Github Profile</button>
-      </div>
+      <img class="avatar" [src]="user.photoURL" alt="user avatar" height="200" width="200">
+      @if (user.displayName) {
+      <div class="name">{{ user.displayName }}</div>
+      } @else {
+      <div class="name">{{ user.email }}</div>
+      }
+      <button class="profile-button" (click)="openGitHubProfile()">View Github Profile</button>
     </div>
     <div fxFlex fxLayout="column" fxLayoutAlign="start start">
       <div fxLayout="row" fxLayoutAlign="start center">

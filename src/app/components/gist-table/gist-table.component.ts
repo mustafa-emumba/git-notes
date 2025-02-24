@@ -13,7 +13,7 @@ export class GistTableComponent implements OnInit {
   @Input() gists: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   displayedColumns: string[] = ['name', 'notebook', 'keyword', 'updatedAt', 'actions'];
-  gitIconPath: string = "/icons/git.svg";
+  forkIconPath: string = "/icons/fork.svg";
   starIconPath: string = "/icons/star.svg";
   dataSource = new MatTableDataSource<any>([]);
 

@@ -46,16 +46,19 @@ export class GistService {
         if (linkHeader) {
           const lastPageMatch = linkHeader.match(/page=(\d+)>;\s*rel="last"/);
           if (lastPageMatch) {
-            return parseInt(lastPageMatch[1], 10); // Extract last page number (total fork count)
+            return parseInt(lastPageMatch[1], 10);
           }
         }
-        return response.body?.length || 0; // If no Link header, return current page count
+        return response.body?.length || 0;
       }),
       catchError(error => {
         console.error('Error fetching fork count:', error);
-        return of(0); // Return 0 in case of an error
+        return of(0);
       })
     );
   }
 
+  createGist(gist: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}`, gist, { headers: this.headers });
+  }
 }

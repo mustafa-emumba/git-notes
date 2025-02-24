@@ -37,6 +37,7 @@ import { environment } from '../environments/environment';
 import { GistComponent } from './pages/gist/gist.component';
 import { OwnerInfoComponent } from './components/owner-info/owner-info.component';
 import { YourGistsComponent } from './pages/your-gists/your-gists.component';
+import { CreateGistComponent } from './pages/create-gist/create-gist.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { YourGistsComponent } from './pages/your-gists/your-gists.component';
     GistCodeComponent,
     GistComponent,
     OwnerInfoComponent,
-    YourGistsComponent
+    YourGistsComponent,
+    CreateGistComponent
   ],
   imports: [
     BrowserModule,

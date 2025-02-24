@@ -67,6 +67,12 @@ export class YourGistsComponent implements OnInit {
     });
   }
 
+  openGitHubProfile() {
+    this.gistService.getGithubUser().subscribe((user) => {
+      window.open(user.html_url,  '_blank');
+    })
+  }
+
   openGist(gist: any) {
     const navigationExtras: NavigationExtras = { state: { data: gist } };
     this.router.navigate(['/gist'], navigationExtras);

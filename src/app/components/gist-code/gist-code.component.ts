@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ElementRef, ViewChild, EventEmitter, Output } from '@angular/core';
 import { GistService } from '../../services/gist.service';
 import * as monaco from 'monaco-editor';
 
@@ -15,7 +15,10 @@ interface GistFile {
 })
 export class GistCodeComponent implements OnInit, AfterViewInit {
   @Input() files!: GistFile;
-  @Input() editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = {}; 
+  @Input() editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = {};
+  @Input() editorForeground: string = '#000000';
+  @Input() editorBackground: string = '#FAFAFA';
+  @Output() codeChanged = new EventEmitter<string>();
   codeContent: string = '';
 
   @ViewChild('editorContainer', { static: false }) editorContainer!: ElementRef;
@@ -41,8 +44,8 @@ export class GistCodeComponent implements OnInit, AfterViewInit {
       inherit: true,
       rules: [],
       colors: {
-        'editor.foreground': '#000000',
-        'editor.background': '#FAFAFA',
+        'editor.foreground': this.editorForeground,
+        'editor.background': this.editorBackground,
       },
     });
   }
@@ -61,6 +64,11 @@ export class GistCodeComponent implements OnInit, AfterViewInit {
     }
 
     this.editor = monaco.editor.create(this.editorContainer.nativeElement, options);
+
+    this.editor.onDidChangeModelContent(() => {
+      this.codeContent = this.editor.getValue();
+      this.codeChanged.emit(this.codeContent);
+    });
 
     setTimeout(() => {
       this.editor.layout();

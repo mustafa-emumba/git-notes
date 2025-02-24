@@ -10,7 +10,7 @@ import * as monaco from 'monaco-editor';
   styleUrl: './gist.component.scss'
 })
 export class GistComponent implements OnInit {
-  gitIconPath: string = "/icons/git.svg";
+  forkIconPath: string = "/icons/fork.svg";
   starIconPath: string = "/icons/star.svg";
   gist: any;
   forkCount: number = 0;
