@@ -2,6 +2,7 @@
   <div fxLayout="column">
     <div class="w-100" fxLayout="row" fxLayoutAlign="space-between center">
       <app-owner-info [item]="gist" [fileNameWidth]="'large'"></app-owner-info>
+      @if (isLoggedIn) {
       <div class="git-buttons" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
         <div class="custom-button" (click)="forkGist()">
           <div fxLayout="row">
@@ -18,7 +19,8 @@
         <div class="custom-button" (click)="isStarred ? unstarGist() : starGist()">
           <div fxLayout="row">
             <div class="button" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0.5rem">
-              <app-svg-icon class="icon" [src]="isStarred ? starFilledIconPath : starIconPath" [height]="'24px'" [width]="'24px'"></app-svg-icon>
+              <app-svg-icon class="icon" [src]="isStarred ? starFilledIconPath : starIconPath" [height]="'24px'"
+                [width]="'24px'"></app-svg-icon>
               <div>Star</div>
             </div>
             <div class="count" fxLayout="row" fxLayoutAlign="center center">
@@ -27,19 +29,20 @@
           </div>
         </div>
       </div>
+      }
     </div>
     <div class="gist-container" fxLayout="column" fxLayoutGap="1rem">
       @for (file of files; track file) {
-        <div fxLayout="column" fxLayoutAlign="start start" class="code-container">
-          <div class="file-name">
-            <div class="name">
-              {{ file.filename }}
-            </div>
-          </div>
-          <div class="w-100 h-100">
-            <app-gist-code class="w-100 h-100" [file]="file" [editorOptions]="editorOptions"></app-gist-code>
+      <div fxLayout="column" fxLayoutAlign="start start" class="code-container">
+        <div class="file-name">
+          <div class="name">
+            {{ file.filename }}
           </div>
         </div>
+        <div class="w-100 h-100">
+          <app-gist-code class="w-100 h-100" [file]="file" [editorOptions]="editorOptions"></app-gist-code>
+        </div>
+      </div>
       }
     </div>
   </div>

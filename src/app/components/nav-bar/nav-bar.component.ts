@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
 import { NavigationExtras, Router } from '@angular/router';
 import { GistService } from '../../services/gist.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -19,10 +20,12 @@ export class NavBarComponent {
   constructor(
     private afAuth: AngularFireAuth,
     private router: Router,
-    private gistService: GistService
+    private gistService: GistService,
+    private authService: AuthService
   ) {
     this.afAuth.authState.subscribe(user => {
       this.user = user;
+      this.authService.setUser(user);
     });
   }
 
@@ -31,6 +34,7 @@ export class NavBarComponent {
   }
 
   logout() {
+    this.authService.logout();
     this.afAuth.signOut();
   }
 

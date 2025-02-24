@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NavigationExtras, Router } from '@angular/router';
 import { GistService } from '../../services/gist.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-gist-table',
@@ -19,11 +20,12 @@ export class GistTableComponent implements OnInit {
   starFilledIconPath: string = "/icons/star-filled.svg";
   dataSource = new MatTableDataSource<any>([]);
   starredGists: { [key: string]: boolean } = {};
+  isLoggedIn: boolean = false;
 
   constructor(
     private router: Router,
-    private gistService: GistService
-
+    private gistService: GistService,
+    private authService: AuthService
   ) { }
 
 
@@ -34,7 +36,9 @@ export class GistTableComponent implements OnInit {
     this.dataSource.data.forEach(gist => {
       this.checkIfStarred(gist.id);
     });
-
+    this.authService.user$.subscribe(user => {
+      this.isLoggedIn = !!user;
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {

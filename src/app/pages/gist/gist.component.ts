@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { GistService } from '../../services/gist.service';
 import * as monaco from 'monaco-editor';
 import { catchError, EMPTY, of, tap, throwError } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-gist',
@@ -19,21 +20,26 @@ export class GistComponent implements OnInit {
   files: any;
   forkCount: number = 0;
   starCount: number = 0;
+  isLoggedIn: boolean = false;
   editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = {
     readOnly: true,
   }
 
   constructor(
     private router: Router,
-    private gistService: GistService
+    private gistService: GistService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
     const currentState = this.router.lastSuccessfulNavigation;
     this.gist = currentState?.extras?.state?.['data'];
     this.getForkCount();
-    this.files = Object.values(this.gist.files)
-    this.isGistStarred()
+    this.files = Object.values(this.gist.files);
+    this.isGistStarred();
+    this.authService.user$.subscribe(user => {
+      this.isLoggedIn = !!user;
+    });
   }
 
   getForkCount() {
