@@ -58,7 +58,19 @@ export class GistService {
     );
   }
 
+  starGist(gistId: string): Observable<any> {
+    return this.http.put(`${this.baseUrl}/${gistId}/star`, null, { headers: this.headers, observe: 'response' });
+  }
+
+  unstarGist(gistId: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${gistId}/star`, { headers: this.headers, observe: 'response' });
+  }
+
   createGist(gist: any): Observable<any> {
     return this.http.post(`${this.baseUrl}`, gist, { headers: this.headers });
+  }
+
+  isGistStarred(gistId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${gistId}/star`, { headers: this.headers, observe: 'response' });
   }
 }

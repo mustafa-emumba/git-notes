@@ -1,0 +1,25 @@
+<section id="starred-gists">
+  <div fxFlex fxLayout="column" fxLayoutAlign="start start">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <div class="title">Starred Gists</div>
+    </div>
+    <div class="w-100" fxLayout="column" fxLayoutGap="1rem">
+      @for (item of pagedGists; track item.id) {
+      <div class="grid-item" fxLayout="column" (click)="openGist(item)">
+        <div class="code-editor">
+          <app-gist-code [file]="getFirstFile(item.files)" [editorOptions]="editorOptions"></app-gist-code>
+        </div>
+        <app-owner-info [item]="item" [fileNameWidth]="'large'"></app-owner-info>
+      </div>
+      }
+    </div>
+    @if (gists.length) {
+    <mat-paginator class="w-100" [length]="gists.length" [pageSize]="pageSize"
+      (page)="onPageChange($event)"></mat-paginator>
+    } @else {
+      <div class="w-100 zero-gists" fxLayout="row" fxLayoutAlign="center center">
+        {{ 'You don’t have any starred gists yet.' }}
+      </div>
+    }
+  </div>
+</section>

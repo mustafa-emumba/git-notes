@@ -30,7 +30,9 @@ export class GistCodeComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     ensureMonacoEnvironment()
-    this.loadGistContent(this.file.raw_url);
+    if (this.file) {
+      this.loadGistContent(this.file.raw_url);
+    }
   }
 
   ngAfterViewInit(): void {

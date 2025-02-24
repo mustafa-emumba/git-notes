@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild, SimpleChanges } from '@angular/cor
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NavigationExtras, Router } from '@angular/router';
+import { GistService } from '../../services/gist.service';
 
 @Component({
   selector: 'app-gist-table',
@@ -15,10 +16,14 @@ export class GistTableComponent implements OnInit {
   displayedColumns: string[] = ['name', 'notebook', 'fileCount', 'updatedAt', 'actions'];
   forkIconPath: string = "/icons/fork.svg";
   starIconPath: string = "/icons/star.svg";
+  starFilledIconPath: string = "/icons/star-filled.svg";
   dataSource = new MatTableDataSource<any>([]);
+  starredGists: { [key: string]: boolean } = {};
 
   constructor(
-    private router: Router
+    private router: Router,
+    private gistService: GistService
+
   ) { }
 
 
@@ -26,6 +31,10 @@ export class GistTableComponent implements OnInit {
     if (this.gists && this.gists.length > 0) {
       this.loadData(this.gists);
     }
+    this.dataSource.data.forEach(gist => {
+      this.checkIfStarred(gist.id);
+    });
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -36,6 +45,19 @@ export class GistTableComponent implements OnInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  checkIfStarred(gistId: string) {
+    this.gistService.isGistStarred(gistId).subscribe({
+      next: () => this.starredGists[gistId] = true,
+      error: err => {
+        if (err.status === 404) {
+          this.starredGists[gistId] = false;
+        } else {
+          console.error(`Error checking star status for ${gistId}`, err);
+        }
+      }
+    });
   }
 
   loadData(gists: any[]) {
@@ -78,6 +100,24 @@ export class GistTableComponent implements OnInit {
 
   getFileCount(gist: any) {
     return Object.values(gist.files).length
+  }
+
+  starGist(event: Event, gistId: string) {
+    event.stopPropagation();
+    this.gistService.starGist(gistId).subscribe((response) => {
+      if (response.status === 204) {
+        this.starredGists[gistId] = true;
+      }
+    })
+  }
+
+  unstarGist(event: Event, gistId: string) {
+    event.stopPropagation();
+    this.gistService.unstarGist(gistId).subscribe((response) => {
+      if (response.status === 204) {
+        this.starredGists[gistId] = false;
+      }
+    })
   }
 
 }

@@ -10,7 +10,6 @@
 }
 
 .owner-name {
-  text-overflow: ellipsis;
   color: #003B44;
   font-weight: 400;
   font-size: 14px;
@@ -18,16 +17,29 @@
   white-space: nowrap;
   overflow: hidden;
   display: inline-block;
+  text-overflow: ellipsis;
 }
 
 .file-name {
-  text-overflow: ellipsis;
   color: #003B44;
   font-weight: 600;
   font-size: 14px;
-  white-space: nowrap;
+}
+
+.small-width {
+  max-width: 300px;
   overflow: hidden;
+  text-overflow: ellipsis;
   display: inline-block;
+  white-space: nowrap;
+}
+
+.large-width {
+  max-width: 900px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .gist-time {

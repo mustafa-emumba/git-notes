@@ -5,12 +5,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import * as monaco from 'monaco-editor';
 
 @Component({
-  selector: 'app-your-gists',
+  selector: 'app-starred-gists',
   standalone: false,
-  templateUrl: './your-gists.component.html',
-  styleUrl: './your-gists.component.scss'
+  templateUrl: './starred-gists.component.html',
+  styleUrl: './starred-gists.component.scss'
 })
-export class YourGistsComponent implements OnInit {
+export class StarredGistsComponent {
   user: any;
   gists: any = [];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -45,6 +45,7 @@ export class YourGistsComponent implements OnInit {
     this.loadGists();
   }
 
+
   onPageChange(event: any) {
     this.currentPage = event.pageIndex;
     this.updatePagedGists();
@@ -57,7 +58,7 @@ export class YourGistsComponent implements OnInit {
   }
 
   loadGists() {
-    this.gistService.getUserGists().subscribe({
+    this.gistService.getStarredGists().subscribe({
       next: (data) => {
         this.gists = data;
         if (data.length < this.pageSize) this.pageSize = data.length;
@@ -69,12 +70,6 @@ export class YourGistsComponent implements OnInit {
 
   getFirstFile(files: any): any {
     return files ? Object.values(files)[0] : null;
-  }
-
-  openGitHubProfile() {
-    this.gistService.getGithubUser().subscribe((user) => {
-      window.open(user.html_url,  '_blank');
-    })
   }
 
   openGist(gist: any) {

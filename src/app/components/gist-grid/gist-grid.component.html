@@ -4,7 +4,7 @@
     <div class="code-editor">
       <app-gist-code [file]="getFirstFile(item.files)" [editorOptions]="editorOptions"></app-gist-code>
     </div>
-    <app-owner-info [item]="item"></app-owner-info>
+    <app-owner-info [item]="item" [fileNameWidth]="'small'" ></app-owner-info>
   </div>
   }
 </div>

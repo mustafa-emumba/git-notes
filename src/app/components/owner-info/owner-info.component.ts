@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
 })
 export class OwnerInfoComponent {
   @Input() item!: any;
+  @Input() fileNameWidth: string = 'small'
 
   getFileName(file: any): string {
     const filename = Object.keys(file)[0]

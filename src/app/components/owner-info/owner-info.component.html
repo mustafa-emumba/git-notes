@@ -5,7 +5,11 @@
   <div fxLayout="column" fxLayoutGap="0.25rem">
     <div fxLayout="row" fxLayoutAlign="baseline center" fxLayoutGap="0.25rem">
       <div class="owner-name">{{ item.owner.login }}</div>
-      <div class="file-name">{{ " / " + getFileName(item.files) }}</div>
+      <div class="file-name" [ngClass]="{ 
+        'small-width': fileNameWidth === 'small',
+        'large-width': fileNameWidth === 'large'}">
+        {{ " / " + getFileName(item.files) }}
+      </div>
     </div>
     <div class="gist-time">{{ timeSince(item.updated_at) }}</div>
     <div class="gist-description">{{ item.description }}</div>

@@ -1,7 +1,7 @@
 <section id="gist">
   <div fxLayout="column">
     <div class="w-100" fxLayout="row" fxLayoutAlign="space-between center">
-      <app-owner-info class="w-100" [item]="gist"></app-owner-info>
+      <app-owner-info [item]="gist" [fileNameWidth]="'large'"></app-owner-info>
       <div class="git-buttons" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
         <div class="custom-button">
           <div fxLayout="row">
@@ -15,10 +15,10 @@
             </div>
           </div>
         </div>
-        <div class="custom-button">
+        <div class="custom-button" (click)="isStarred ? unstarGist() : starGist()">
           <div fxLayout="row">
             <div class="button" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0.5rem">
-              <app-svg-icon class="icon" [src]="starIconPath" [height]="'24px'" [width]="'24px'"></app-svg-icon>
+              <app-svg-icon class="icon" [src]="isStarred ? starFilledIconPath : starIconPath" [height]="'24px'" [width]="'24px'"></app-svg-icon>
               <div>Star</div>
             </div>
             <div class="count" fxLayout="row" fxLayoutAlign="center center">

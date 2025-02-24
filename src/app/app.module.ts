@@ -38,6 +38,7 @@ import { GistComponent } from './pages/gist/gist.component';
 import { OwnerInfoComponent } from './components/owner-info/owner-info.component';
 import { YourGistsComponent } from './pages/your-gists/your-gists.component';
 import { CreateGistComponent } from './pages/create-gist/create-gist.component';
+import { StarredGistsComponent } from './pages/starred-gists/starred-gists.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { CreateGistComponent } from './pages/create-gist/create-gist.component';
     GistComponent,
     OwnerInfoComponent,
     YourGistsComponent,
-    CreateGistComponent
+    CreateGistComponent,
+    StarredGistsComponent
   ],
   imports: [
     BrowserModule,
