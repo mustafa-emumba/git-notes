@@ -3,7 +3,7 @@
     <div class="w-100" fxLayout="row" fxLayoutAlign="space-between center">
       <app-owner-info [item]="gist" [fileNameWidth]="'large'"></app-owner-info>
       <div class="git-buttons" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
-        <div class="custom-button">
+        <div class="custom-button" (click)="forkGist()">
           <div fxLayout="row">
             <div class="button" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0.5rem">
               <div></div>

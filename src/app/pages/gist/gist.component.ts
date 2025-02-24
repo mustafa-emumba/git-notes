@@ -42,6 +42,12 @@ export class GistComponent implements OnInit {
     });
   }
 
+  forkGist() {
+    this.gistService.forkGist(this.gist.id).subscribe(() => {
+      alert(`You forked a Gist from ${this.gist.owner.login}`);
+    });
+  }
+
   isGistStarred() {
     this.gistService.isGistStarred(this.gist.id).pipe(
       tap(() => this.isStarred = true),
@@ -55,15 +61,13 @@ export class GistComponent implements OnInit {
       })
     ).subscribe();
   }
-  
-
 
   starGist() {
     this.gistService.starGist(this.gist.id).subscribe((response) => {
       if (response.status === 204) {
         this.isStarred = true;
       }
-    })
+    });
   }
 
   unstarGist() {
@@ -71,7 +75,7 @@ export class GistComponent implements OnInit {
       if (response.status === 204) {
         this.isStarred = false;
       }
-    })
+    });
   }
 
 }

@@ -36,7 +36,7 @@
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
     <mat-cell *matCellDef="let item" class="actions">
       <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="1rem">
-        <app-svg-icon class="action-icon" [src]="forkIconPath" [height]="'24px'" [width]="'24px'"></app-svg-icon>
+        <app-svg-icon class="action-icon" [src]="forkIconPath" [height]="'24px'" [width]="'24px'" (click)="forkGist($event, item.id, item.owner.login)"></app-svg-icon>
         <app-svg-icon class="action-icon" [src]="starredGists[item.id] ? starFilledIconPath : starIconPath" [height]="'24px'"
           [width]="'24px'" (click)="starredGists[item.id] ? unstarGist($event, item.id) : starGist($event, item.id)"></app-svg-icon>
       </div>

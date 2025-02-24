@@ -102,6 +102,13 @@ export class GistTableComponent implements OnInit {
     return Object.values(gist.files).length
   }
 
+  forkGist(event: Event, gistId: string, ownerName: string) {
+    event.stopPropagation();
+    this.gistService.forkGist(gistId).subscribe(() => {
+      alert(`You forked a Gist from ${ownerName}`);
+    });
+  }
+
   starGist(event: Event, gistId: string) {
     event.stopPropagation();
     this.gistService.starGist(gistId).subscribe((response) => {

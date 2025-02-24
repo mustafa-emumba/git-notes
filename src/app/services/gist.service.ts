@@ -58,6 +58,10 @@ export class GistService {
     );
   }
 
+  forkGist(gistId: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/${gistId}/forks`, null, { headers: this.headers });
+  }
+
   starGist(gistId: string): Observable<any> {
     return this.http.put(`${this.baseUrl}/${gistId}/star`, null, { headers: this.headers, observe: 'response' });
   }
