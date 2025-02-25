@@ -53,6 +53,14 @@ export class CreateGistComponent implements OnDestroy {
     })
   }
 
+  isFormInvalid(): boolean {
+    if (!this.gistDescription.trim()) {
+      return true;
+    }
+    const hasValidFile = this.files.some(file => file.filename.trim() && file.content.trim());
+    return !hasValidFile;
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

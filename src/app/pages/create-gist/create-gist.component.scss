@@ -53,6 +53,10 @@
     padding: 0.75rem 2rem;
     color: white;
     background-color: #003B44;
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   }
 
 }

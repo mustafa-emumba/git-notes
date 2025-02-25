@@ -23,7 +23,7 @@
     }
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <button class="add-file-button" (click)="addFile()">Add file</button>
-      <button class="create-gist-button" (click)="createGist()">Create Gist</button>
+      <button class="create-gist-button" (click)="createGist()" [disabled]="isFormInvalid()">Create Gist</button>
     </div>
 
   </div>
