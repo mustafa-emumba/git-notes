@@ -2,6 +2,8 @@ import { Component, OnDestroy } from '@angular/core';
 import * as monaco from 'monaco-editor';
 import { GistService } from '../../services/gist.service';
 import { Subject, takeUntil } from 'rxjs';
+import { NavigationExtras, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-create-gist',
@@ -20,7 +22,9 @@ export class CreateGistComponent implements OnDestroy {
   private destroy$ = new Subject<void>();
 
   constructor(
-    private gistService: GistService
+    private gistService: GistService,
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   addFile(): void {
@@ -49,8 +53,22 @@ export class CreateGistComponent implements OnDestroy {
     };
 
     this.gistService.createGist(gist).pipe(takeUntil(this.destroy$)).subscribe((response) => {
-      console.log(response)
+      this.openYourGists();
     })
+  }
+
+  openYourGists() {
+    const user = this.authService.getUser()
+    const navigationExtras: NavigationExtras = {
+      state: {
+        data: {
+          photoURL: user?.photoURL,
+          email: user?.email,
+          displayName: user?.displayName
+        }
+      }
+    };
+    this.router.navigate(['/your-gists'], navigationExtras);
   }
 
   isFormInvalid(): boolean {

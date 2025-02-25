@@ -14,6 +14,10 @@ export class AuthService {
     return this.userSubject.value !== null;
   }
 
+  getUser(): any | null {
+    return this.userSubject.value;
+  }
+
   setUser(userData: any) {
     this.userSubject.next(userData);
   }
