@@ -1,6 +1,7 @@
-import { AfterViewInit, Component, Input, OnInit, ElementRef, ViewChild, EventEmitter, Output } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ElementRef, ViewChild, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { GistService } from '../../services/gist.service';
 import { ensureMonacoEnvironment } from '../../utils/monaco-config';
+import { Subject, takeUntil } from 'rxjs';
 import * as monaco from 'monaco-editor';
 
 interface GistFile {
@@ -14,13 +15,14 @@ interface GistFile {
   templateUrl: './gist-code.component.html',
   styleUrl: './gist-code.component.scss'
 })
-export class GistCodeComponent implements OnInit, AfterViewInit {
+export class GistCodeComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() file!: GistFile;
   @Input() editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = {};
   @Input() editorForeground: string = '#000000';
   @Input() editorBackground: string = '#FAFAFA';
   @Output() codeChanged = new EventEmitter<string>();
   codeContent: string = '';
+  private destroy$ = new Subject<void>();
 
   @ViewChild('editorContainer', { static: false }) editorContainer!: ElementRef;
   editor!: monaco.editor.IStandaloneCodeEditor;
@@ -79,7 +81,7 @@ export class GistCodeComponent implements OnInit, AfterViewInit {
 
 
   loadGistContent(rawUrl: string) {
-    this.gistService.getGistContent(rawUrl).subscribe({
+    this.gistService.getGistContent(rawUrl).pipe(takeUntil(this.destroy$)).subscribe({
       next: (data) => {
         this.codeContent = data;
         if (this.editor) {
@@ -90,4 +92,8 @@ export class GistCodeComponent implements OnInit, AfterViewInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

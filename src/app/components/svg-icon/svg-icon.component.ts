@@ -1,15 +1,17 @@
-import { Component, Input, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, ElementRef, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-svg-icon',
   standalone: false,
   template: ''
 })
-export class SvgIconComponent implements OnChanges {
+export class SvgIconComponent implements OnChanges, OnDestroy {
   @Input() src!: string;
   @Input() width: string = '100%';
   @Input() height: string = '100%';
+  private destroy$ = new Subject<void>();
 
   constructor(private http: HttpClient, private el: ElementRef) { }
 
@@ -20,7 +22,7 @@ export class SvgIconComponent implements OnChanges {
   }
 
   private loadSvg() {
-    this.http.get(this.src, { responseType: 'text' }).subscribe({
+    this.http.get(this.src, { responseType: 'text' }).pipe(takeUntil(this.destroy$)).subscribe({
       next: (svgContent) => {
         const parser = new DOMParser();
         const svgDocument = parser.parseFromString(svgContent, 'image/svg+xml');
@@ -40,5 +42,10 @@ export class SvgIconComponent implements OnChanges {
         console.error(`Failed to load SVG: ${this.src}`, err);
       },
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

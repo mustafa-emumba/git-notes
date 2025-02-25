@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import * as monaco from 'monaco-editor';
 import { GistService } from '../../services/gist.service';
-
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-create-gist',
@@ -9,7 +9,7 @@ import { GistService } from '../../services/gist.service';
   templateUrl: './create-gist.component.html',
   styleUrl: './create-gist.component.scss'
 })
-export class CreateGistComponent {
+export class CreateGistComponent implements OnDestroy {
   editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = {
     minimap: { enabled: false },
   }
@@ -17,6 +17,7 @@ export class CreateGistComponent {
   files: Array<{ filename: string; content: string }> = [
     { filename: '', content: '' }
   ];
+  private destroy$ = new Subject<void>();
 
   constructor(
     private gistService: GistService
@@ -47,8 +48,13 @@ export class CreateGistComponent {
       files: files
     };
 
-    this.gistService.createGist(gist).subscribe((response) => {
+    this.gistService.createGist(gist).pipe(takeUntil(this.destroy$)).subscribe((response) => {
       console.log(response)
     })
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

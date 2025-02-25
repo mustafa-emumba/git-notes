@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { GistService } from '../../services/gist.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-public-gists',
@@ -13,6 +14,7 @@ export class PublicGistsComponent implements OnInit {
   listIconPath: string = "/icons/list.svg";
   layout: string = "list";
   gists: any;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private gistService: GistService,
@@ -23,7 +25,7 @@ export class PublicGistsComponent implements OnInit {
   }
 
   loadGists() {
-    this.gistService.getPublicGists().subscribe({
+    this.gistService.getPublicGists().pipe(takeUntil(this.destroy$)).subscribe({
       next: (data) => {
         this.gists = data;
       },
@@ -35,4 +37,8 @@ export class PublicGistsComponent implements OnInit {
     this.layout = event.value;
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

@@ -1,9 +1,10 @@
-import { Component, Input, OnInit, ViewChild, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, SimpleChanges, OnDestroy } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NavigationExtras, Router } from '@angular/router';
 import { GistService } from '../../services/gist.service';
 import { AuthService } from '../../services/auth.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-gist-table',
@@ -11,7 +12,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './gist-table.component.html',
   styleUrl: './gist-table.component.scss'
 })
-export class GistTableComponent implements OnInit {
+export class GistTableComponent implements OnInit, OnDestroy {
   @Input() gists: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   displayedColumns: string[] = ['name', 'notebook', 'fileCount', 'updatedAt', 'actions'];
@@ -21,6 +22,7 @@ export class GistTableComponent implements OnInit {
   dataSource = new MatTableDataSource<any>([]);
   starredGists: { [key: string]: boolean } = {};
   isLoggedIn: boolean = false;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private router: Router,
@@ -36,7 +38,7 @@ export class GistTableComponent implements OnInit {
     this.dataSource.data.forEach(gist => {
       this.checkIfStarred(gist.id);
     });
-    this.authService.user$.subscribe(user => {
+    this.authService.user$.pipe(takeUntil(this.destroy$)).subscribe(user => {
       this.isLoggedIn = !!user;
     });
   }
@@ -52,7 +54,7 @@ export class GistTableComponent implements OnInit {
   }
 
   checkIfStarred(gistId: string) {
-    this.gistService.isGistStarred(gistId).subscribe({
+    this.gistService.isGistStarred(gistId).pipe(takeUntil(this.destroy$)).subscribe({
       next: () => this.starredGists[gistId] = true,
       error: err => {
         if (err.status === 404) {
@@ -108,14 +110,14 @@ export class GistTableComponent implements OnInit {
 
   forkGist(event: Event, gistId: string, ownerName: string) {
     event.stopPropagation();
-    this.gistService.forkGist(gistId).subscribe(() => {
+    this.gistService.forkGist(gistId).pipe(takeUntil(this.destroy$)).subscribe(() => {
       alert(`You forked a Gist from ${ownerName}`);
     });
   }
 
   starGist(event: Event, gistId: string) {
     event.stopPropagation();
-    this.gistService.starGist(gistId).subscribe((response) => {
+    this.gistService.starGist(gistId).pipe(takeUntil(this.destroy$)).subscribe((response) => {
       if (response.status === 204) {
         this.starredGists[gistId] = true;
       }
@@ -124,11 +126,15 @@ export class GistTableComponent implements OnInit {
 
   unstarGist(event: Event, gistId: string) {
     event.stopPropagation();
-    this.gistService.unstarGist(gistId).subscribe((response) => {
+    this.gistService.unstarGist(gistId).pipe(takeUntil(this.destroy$)).subscribe((response) => {
       if (response.status === 204) {
         this.starredGists[gistId] = false;
       }
     })
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

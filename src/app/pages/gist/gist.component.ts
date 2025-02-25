@@ -4,6 +4,7 @@ import { GistService } from '../../services/gist.service';
 import * as monaco from 'monaco-editor';
 import { catchError, EMPTY, of, tap, throwError } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-gist',
@@ -24,6 +25,7 @@ export class GistComponent implements OnInit {
   editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = {
     readOnly: true,
   }
+  private destroy$ = new Subject<void>();
 
   constructor(
     private router: Router,
@@ -37,19 +39,19 @@ export class GistComponent implements OnInit {
     this.getForkCount();
     this.files = Object.values(this.gist.files);
     this.isGistStarred();
-    this.authService.user$.subscribe(user => {
+    this.authService.user$.pipe(takeUntil(this.destroy$)).subscribe(user => {
       this.isLoggedIn = !!user;
     });
   }
 
   getForkCount() {
-    this.gistService.getForkCount(this.gist.id).subscribe(forkCount => {
+    this.gistService.getForkCount(this.gist.id).pipe(takeUntil(this.destroy$)).subscribe(forkCount => {
       this.forkCount = forkCount;
     });
   }
 
   forkGist() {
-    this.gistService.forkGist(this.gist.id).subscribe(() => {
+    this.gistService.forkGist(this.gist.id).pipe(takeUntil(this.destroy$)).subscribe(() => {
       alert(`You forked a Gist from ${this.gist.owner.login}`);
     });
   }
@@ -65,11 +67,11 @@ export class GistComponent implements OnInit {
         console.error('Error checking gist star status:', error);
         return throwError(() => error);
       })
-    ).subscribe();
+    ).pipe(takeUntil(this.destroy$)).subscribe();
   }
 
   starGist() {
-    this.gistService.starGist(this.gist.id).subscribe((response) => {
+    this.gistService.starGist(this.gist.id).pipe(takeUntil(this.destroy$)).subscribe((response) => {
       if (response.status === 204) {
         this.isStarred = true;
       }
@@ -77,11 +79,15 @@ export class GistComponent implements OnInit {
   }
 
   unstarGist() {
-    this.gistService.unstarGist(this.gist.id).subscribe((response) => {
+    this.gistService.unstarGist(this.gist.id).pipe(takeUntil(this.destroy$)).subscribe((response) => {
       if (response.status === 204) {
         this.isStarred = false;
       }
     });
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

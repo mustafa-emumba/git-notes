@@ -3,6 +3,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { GistService } from '../../services/gist.service';
 import { MatPaginator } from '@angular/material/paginator';
 import * as monaco from 'monaco-editor';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-your-gists',
@@ -33,6 +34,7 @@ export class YourGistsComponent implements OnInit {
     lineDecorationsWidth: 0,
     lineNumbersMinChars: 0
   }
+  private destroy$ = new Subject<void>();
 
   constructor(
     private router: Router,
@@ -57,7 +59,7 @@ export class YourGistsComponent implements OnInit {
   }
 
   loadGists() {
-    this.gistService.getUserGists().subscribe({
+    this.gistService.getUserGists().pipe(takeUntil(this.destroy$)).subscribe({
       next: (data) => {
         this.gists = data;
         if (data.length < this.pageSize) this.pageSize = data.length;
@@ -72,7 +74,7 @@ export class YourGistsComponent implements OnInit {
   }
 
   openGitHubProfile() {
-    this.gistService.getGithubUser().subscribe((user) => {
+    this.gistService.getGithubUser().pipe(takeUntil(this.destroy$)).subscribe((user) => {
       window.open(user.html_url,  '_blank');
     })
   }
@@ -80,5 +82,10 @@ export class YourGistsComponent implements OnInit {
   openGist(gist: any) {
     const navigationExtras: NavigationExtras = { state: { data: gist } };
     this.router.navigate(['/gist'], navigationExtras);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

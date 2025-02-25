@@ -3,6 +3,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { GistService } from '../../services/gist.service';
 import { MatPaginator } from '@angular/material/paginator';
 import * as monaco from 'monaco-editor';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-starred-gists',
@@ -33,6 +34,7 @@ export class StarredGistsComponent {
     lineDecorationsWidth: 0,
     lineNumbersMinChars: 0
   }
+  private destroy$ = new Subject<void>();
 
   constructor(
     private router: Router,
@@ -58,7 +60,7 @@ export class StarredGistsComponent {
   }
 
   loadGists() {
-    this.gistService.getStarredGists().subscribe({
+    this.gistService.getStarredGists().pipe(takeUntil(this.destroy$)).subscribe({
       next: (data) => {
         this.gists = data;
         if (data.length < this.pageSize) this.pageSize = data.length;
@@ -75,5 +77,10 @@ export class StarredGistsComponent {
   openGist(gist: any) {
     const navigationExtras: NavigationExtras = { state: { data: gist } };
     this.router.navigate(['/gist'], navigationExtras);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

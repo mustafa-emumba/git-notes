@@ -4,6 +4,7 @@ import firebase from 'firebase/compat/app';
 import { NavigationExtras, Router } from '@angular/router';
 import { GistService } from '../../services/gist.service';
 import { AuthService } from '../../services/auth.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-nav-bar',
@@ -16,6 +17,7 @@ export class NavBarComponent {
   user: firebase.User | null = null;
   dropdownOpen: boolean = false;
   @ViewChild('profileContainer') profileContainer!: ElementRef;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -23,7 +25,7 @@ export class NavBarComponent {
     private gistService: GistService,
     private authService: AuthService
   ) {
-    this.afAuth.authState.subscribe(user => {
+    this.afAuth.authState.pipe(takeUntil(this.destroy$)).subscribe(user => {
       this.user = user;
       this.authService.setUser(user);
     });
@@ -60,8 +62,8 @@ export class NavBarComponent {
   }
 
   openGitHubProfile() {
-    this.gistService.getGithubUser().subscribe((user) => {
-      window.open(user.html_url,  '_blank');
+    this.gistService.getGithubUser().pipe(takeUntil(this.destroy$)).subscribe((user) => {
+      window.open(user.html_url, '_blank');
     })
   }
 
@@ -72,5 +74,8 @@ export class NavBarComponent {
     }
   }
 
-
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }
