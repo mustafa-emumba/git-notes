@@ -1,9 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import * as monaco from 'monaco-editor';
-import { GistService } from '../../services/gist.service';
+import { GistService } from '../../core/services/gist.service';
 import { Subject, takeUntil } from 'rxjs';
 import { NavigationExtras, Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-create-gist',

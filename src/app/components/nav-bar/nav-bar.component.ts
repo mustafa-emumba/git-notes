@@ -2,8 +2,8 @@ import { Component, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
 import { NavigationExtras, Router } from '@angular/router';
-import { GistService } from '../../services/gist.service';
-import { AuthService } from '../../services/auth.service';
+import { GistService } from '../../core/services/gist.service';
+import { AuthService } from '../../core/services/auth.service';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({

@@ -22,12 +22,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 // Component Imports
-import { SvgIconComponent } from './components/svg-icon/svg-icon.component';
+import { SvgIconComponent } from './shared/components/svg-icon/svg-icon.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { PublicGistsComponent } from './pages/public-gists/public-gists.component';
 import { GistTableComponent } from './components/gist-table/gist-table.component';
 import { GistGridComponent } from './components/gist-grid/gist-grid.component';
-import { GistCodeComponent } from './components/gist-code/gist-code.component';
+import { GistCodeComponent } from './shared/components/gist-code/gist-code.component';
 
 // Third Party Imports
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
@@ -35,7 +35,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
 import { GistComponent } from './pages/gist/gist.component';
-import { OwnerInfoComponent } from './components/owner-info/owner-info.component';
+import { OwnerInfoComponent } from './shared/components/owner-info/owner-info.component';
 import { YourGistsComponent } from './pages/your-gists/your-gists.component';
 import { CreateGistComponent } from './pages/create-gist/create-gist.component';
 import { StarredGistsComponent } from './pages/starred-gists/starred-gists.component';

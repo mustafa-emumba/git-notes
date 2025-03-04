@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { GistService } from '../../services/gist.service';
+import { GistService } from '../../core/services/gist.service';
 import { MatPaginator } from '@angular/material/paginator';
 import * as monaco from 'monaco-editor';
 import { Subject, takeUntil } from 'rxjs';

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Input, OnInit, ElementRef, ViewChild, EventEmitter, Output, OnDestroy } from '@angular/core';
-import { GistService } from '../../services/gist.service';
-import { ensureMonacoEnvironment } from '../../utils/monaco-config';
+import { GistService } from '../../../core/services/gist.service';
+import { ensureMonacoEnvironment } from '../../../core/configs/monaco-config';
 import { Subject, takeUntil } from 'rxjs';
 import * as monaco from 'monaco-editor';
 

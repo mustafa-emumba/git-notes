@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
-import { GistService } from '../../services/gist.service';
+import { GistService } from '../../core/services/gist.service';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({

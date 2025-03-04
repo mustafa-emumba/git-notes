@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GistService } from '../../services/gist.service';
+import { GistService } from '../../core/services/gist.service';
 import * as monaco from 'monaco-editor';
 import { catchError, EMPTY, of, tap, throwError } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../core/services/auth.service';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({

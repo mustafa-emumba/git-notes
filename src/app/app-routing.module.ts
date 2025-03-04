@@ -5,7 +5,7 @@ import { GistComponent } from './pages/gist/gist.component';
 import { YourGistsComponent } from './pages/your-gists/your-gists.component';
 import { CreateGistComponent } from './pages/create-gist/create-gist.component';
 import { StarredGistsComponent } from './pages/starred-gists/starred-gists.component';
-import { authGuard } from './guards/auth.guard';
+import { authGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   { path: "", component: PublicGistsComponent },
