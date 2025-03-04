@@ -2,8 +2,8 @@ import { Component, Input, OnInit, ViewChild, SimpleChanges, OnDestroy } from '@
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NavigationExtras, Router } from '@angular/router';
-import { GistService } from '../../core/services/gist.service';
-import { AuthService } from '../../core/services/auth.service';
+import { GistService } from '../../../core/services/gist.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({

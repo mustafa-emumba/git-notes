@@ -23,10 +23,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 // Component Imports
 import { SvgIconComponent } from './shared/components/svg-icon/svg-icon.component';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { NavBarComponent } from './shared/components/nav-bar/nav-bar.component';
 import { PublicGistsComponent } from './pages/public-gists/public-gists.component';
-import { GistTableComponent } from './components/gist-table/gist-table.component';
-import { GistGridComponent } from './components/gist-grid/gist-grid.component';
+import { GistTableComponent } from './shared/components/gist-table/gist-table.component';
+import { GistGridComponent } from './shared/components/gist-grid/gist-grid.component';
 import { GistCodeComponent } from './shared/components/gist-code/gist-code.component';
 
 // Third Party Imports
